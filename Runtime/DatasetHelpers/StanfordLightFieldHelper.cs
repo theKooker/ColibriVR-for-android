@@ -68,7 +68,6 @@ namespace COLIBRIVR.DatasetHelpers
 
 #region METHODS
 
-#if UNITY_EDITOR
 
         /// <summary>
         /// Parses the camera setup from a directory containing an "images" folder with an image dataset from the Stanford Light Field Archive, and saves the parsed setup in this directory.
@@ -100,12 +99,13 @@ namespace COLIBRIVR.DatasetHelpers
                 cameraModel.SetCameraReferenceIndexAndImageName(cameraModel.cameraReferenceIndex, fileInfo.Name);
                 // Store the image's position in the model.
                 string[] split = fileInfo.Name.Split('_');
-                float positionY = - GeneralToolkit.ParseFloat(split[split.Length-3]);
-                float positionX = GeneralToolkit.ParseFloat(split[split.Length-2]);
-                Vector3 pos = scaleFactor * new Vector3(positionX, positionY, 0);
-                cameraModel.transform.position = pos;
-                meanPos += pos;
+                //float positionY = - GeneralToolkit.ParseFloat(split[split.Length-3]);
+                //float positionX = GeneralToolkit.ParseFloat(split[split.Length-2]);
+                //Vector3 pos = scaleFactor * new Vector3(positionX, positionY, 0);
+               // cameraModel.transform.position = pos;
+               // meanPos += pos;
             }
+            /*
             // If it is selected, reposition the camera setup around its center position.
             if(repositionAroundCenter)
             {
@@ -116,6 +116,7 @@ namespace COLIBRIVR.DatasetHelpers
                     cameraModel.transform.position = cameraModel.transform.position - meanPos;
                 }
             }
+            */
             // Temporarily move the color images to a safe location.
             string tempDirectoryPath = Path.Combine(GeneralToolkit.GetDirectoryBefore(dataHandler.dataDirectory), "temp");
             GeneralToolkit.Move(PathType.Directory, dataHandler.colorDirectory, tempDirectoryPath);
@@ -130,7 +131,7 @@ namespace COLIBRIVR.DatasetHelpers
             Debug.Log(GeneralToolkit.FormatScriptMessage(this.GetType(), "Finished parsing camera setup. Result can be previewed in the Scene view."));
         }
 
-#endif //UNITY_EDITOR
+
 
 #endregion //METHODS
 
